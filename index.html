@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redland Realty and Auction - Miami's Premier Auction House</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Reset & Global Styles */
+        :root {
+            --color-primary: #1a1a2e;
+            --color-accent: #4a90d9;
+            --color-background-light: #f8f9fa;
+            --color-text-light: #ffffff;
+            --color-text-dark: #333333; /* A slightly lighter dark for better readability on light bg */
+            --color-gray-dark: #555555;
+            --font-heading: 'Inter', sans-serif;
+            --font-body: 'Open Sans', sans-serif;
+            --container-width: 1200px;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--color-text-dark);
+            line-height: 1.6;
+            background-color: var(--color-text-light);
+            overflow-x: hidden; /* Prevent horizontal scroll from large elements */
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+            color: var(--color-primary);
+            line-height: 1.2;
+            margin-bottom: 0.5em;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--color-accent);
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--color-primary);
+        }
+
+        p {
+            margin-bottom: 1em;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        section {
+            padding: 4rem 0;
+        }
+
+        .section-dark {
+            background-color: var(--color-primary);
+            color: var(--color-text-light);
+        }
+        .section-dark h2, .section-dark h3 {
+            color: var(--color-text-light);
+        }
+
+        .section-light {
+            background-color: var(--color-background-light);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--color-accent);
+            color: var(--color-text-light);
+            padding: 0.8em 1.8em;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            border: none;
+            cursor: pointer;
+            font-family: var(--font-heading);
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: #3b7bc7; /* Slightly darker accent */
+            transform: translateY(-2px);
+            color: var(--color-text-light); /* Ensure text color remains white */
+        }
+
+        /* Header / Navbar */
+        .header {
+            background-color: var(--color-primary);
+            color: var(--color-text-light);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap; /* Allow wrapping on small screens */
+            padding: 0 1.5rem;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--color-text-light);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            margin-left: auto; /* Push nav to right on larger screens */
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--color-text-light);
+            font-weight: 400;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-accent);
+        }
+        
+        .nav-toggle {
+            display: none; /* Hidden by default on larger screens */
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--color-text-light);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--color-text-light);
+            overflow: hidden;
+            background-color: var(--color-primary); /* Fallback */
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://source.unsplash.com/featured/1600x900/?Auction,house,professional') no-repeat center center/cover;
+            filter: brightness(0.4); /* Darken image */
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 1.5rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5em;
+            color: var(--color-text-light);
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2em;
+            color: var(--color-text-light);
+            opacity: 0.9;
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background-color: var(--color-text-light);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .service-card i {
+            font-size: 3.5rem;
+            color: var(--color-accent);
+            margin-bottom: 0.8em;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5em;
+            color: var(--color-primary);
+        }
+
+        .service-card p {
+            color: var(--color-gray-dark);
+        }
+
+        /* About Section */
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text, .about-image {
+            flex: 1;
+        }
+        
+        .about-image img {
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-grid img {
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Reviews Section */
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .review-card {
+            background-color: var(--color-text-light);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .review-card .stars {
+            color: #ffc107; /* Gold color for stars */
+            margin-bottom: 1em;
+            font-size: 1.2rem;
+        }
+
+        .review-card p {
+            font-style: italic;
+            color: var(--color-gray-dark);
+            margin-bottom: 1.5em;
+        }
+
+        .review-card .reviewer {
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+        
+        /* New Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background-color: var(--color-text-light);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .feature-card i {
+            font-size: 3.5rem;
+            color: var(--color-accent);
+            margin-bottom: 0.8em;
+        }
+        .feature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5em;
+            color: var(--color-primary);
+        }
+        .feature-card p {
+            color: var(--color-gray-dark);
+            font-size: 0.95rem;
+        }
+        .feature-card .status {
+            display: inline-block;
+            background-color: var(--color-accent);
+            color: var(--color-text-light);
+            padding: 0.3em 0.8em;
+            border-radius: 3px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-bottom: 1em;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-info p {
+            margin-bottom: 1em;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .contact-info i {
+            color: var(--color-accent);
+            font-size: 1.5rem;
+            margin-right: 0.8em;
+            min-width: 25px; /* Ensure icon doesn't shrink */
+        }
+
+        .contact-form {
+            flex: 1;
+            background-color: var(--color-text-light);
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 0.5em;
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 0.8em 1em;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--color-accent);
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-map {
+            width: 100%;
+            height: 350px;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-top: 3rem;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--color-primary);
+            color: var(--color-text-light);
+            padding: 3rem 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .footer .logo {
+            margin-bottom: 1.5rem;
+            display: block; /* Center logo in footer */
+        }
+
+        .footer-nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-nav li {
+            margin: 0.5rem 1rem;
+        }
+
+        .footer-nav a {
+            color: var(--color-text-light);
+            font-weight: 300;
+            transition: color 0.3s ease;
+        }
+
+        .footer-nav a:hover {
+            color: var(--color-accent);
+        }
+
+        .footer-contact p {
+            margin: 0.5rem 0;
+            color: var(--color-text-light);
+        }
+
+        .footer-contact i {
+            margin-right: 0.5em;
+            color: var(--color-accent);
+        }
+
+        .footer-copyright {
+            margin-top: 2rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* WhatsApp Floating Button */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 3px #999;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .whatsapp-float:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 3px 3px 5px #777;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-wrap: wrap;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .nav-links {
+                display: none; /* Hide nav links by default on small screens */
+                flex-direction: column;
+                width: 100%;
+                background-color: var(--color-primary);
+                position: absolute;
+                top: 70px; /* Adjust based on header height */
+                left: 0;
+                padding: 1rem 0;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+            }
+            .nav-links.active {
+                display: flex; /* Show when active */
+            }
+
+            .nav-links li {
+                margin: 0;
+                text-align: center;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-links li:last-child {
+                border-bottom: none;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 1rem 0;
+                width: 100%;
+            }
+
+            .nav-toggle {
+                display: block; /* Show toggle button */
+            }
+
+            .hero {
+                height: 70vh;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            section {
+                padding: 3rem 0;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+
+            .contact-content {
+                flex-direction: column;
+            }
+            
+            .contact-form {
+                padding: 1.5rem;
+            }
+
+            .footer-nav ul {
+                flex-direction: column;
+            }
+            .footer-nav li {
+                margin: 0.5rem 0;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .about-content {
+                flex-direction: row;
+            }
+            .about-text {
+                padding-right: 3rem;
+            }
+            .contact-content {
+                flex-direction: row;
+            }
+            .contact-info {
+                padding-right: 3rem;
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Navigation Bar -->
+    <header class="header">
+        <nav class="navbar container">
+            <a href="#" class="logo">Redland Realty and Auction</a>
+            <div class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#reviews">Reviews</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <h1>Your Premier Partner in Auction Success</h1>
+            <p>Maximizing Value, Ensuring Transparency, Delivering Results for Real Estate, Estates, and Valuables.</p>
+            <a href="#contact" class="btn">Schedule Your Free Consultation</a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section-light">
+        <div class="container text-center">
+            <h2>Our Auction Expertise</h2>
+            <p>At Redland Realty and Auction, we offer specialized services designed to achieve optimal outcomes for your valuable assets.</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-gavel"></i>
+                    <h3>Real Estate Auctions</h3>
+                    <p>Efficiently sell residential, commercial, and land properties with our proven auction methods, attracting qualified buyers and securing top market value.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-house-user"></i>
+                    <h3>Estate & Personal Property</h3>
+                    <p>Expert handling of estates, antiques, fine art, and collectibles. We provide meticulous appraisal, cataloging, and targeted marketing.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-briefcase"></i>
+                    <h3>Business Liquidations</h3>
+                    <p>Streamlined auctions for business assets, equipment, and inventory, ensuring a swift and profitable divestment process for your commercial holdings.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-gem"></i>
+                    <h3>Luxury & Specialty Items</h3>
+                    <p>Specializing in high-value assets, from classic cars to rare jewelry, connecting sellers with discerning collectors worldwide through our exclusive networks.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2 class="text-center">Redland Realty and Auction: Decades of Trust, Innovation, and Results</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>At Redland Realty and Auction, we combine deep market knowledge with cutting-edge strategies to provide an unparalleled auction experience. Located in Miami, FL, we pride ourselves on transparency, integrity, and delivering exceptional value for our clients, whether you're selling a cherished estate, a commercial property, or unique collectibles. Our dedicated team is committed to making your auction process seamless, rewarding, and stress-free.</p>
+                    <p>We believe in building lasting relationships through consistent performance and honest dealings. Our comprehensive approach covers everything from initial appraisal and strategic marketing to expert auction management and post-sale logistics, ensuring every detail is handled with precision.</p>
+                    <a href="#contact" class="btn">Learn More & Get Started</a>
+                </div>
+                <div class="about-image">
+                    <img src="https://source.unsplash.com/featured/900x600/?Auction,house,team" alt="Redland Realty and Auction Team" loading="lazy">
+                </div>
+            </div>
+            <div class="gallery-grid">
+                <img src="https://source.unsplash.com/featured/600x400/?modern,office" alt="Modern office interior" loading="lazy">
+                <img src="https://source.unsplash.com/featured/600x400/?business,meeting" alt="Business meeting in progress" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="section-light">
+        <div class="container text-center">
+            <h2>What Our Clients Say</h2>
+            <p>Hear from those who have experienced the Redland Realty and Auction difference.</p>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p>"Redland Realty and Auction handled my parents' estate sale with such professionalism and care. They made a difficult time much easier, and the results exceeded our expectations. Highly recommend their Miami team!"</p>
+                    <div class="reviewer">- Sarah L., Miami, FL</div>
+                </div>
+                <div class="review-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p>"We needed to liquidate some commercial properties quickly, and Redland Realty and Auction delivered. Their process was transparent, and their marketing reached the right buyers. Couldn't be happier with the speed and the price we got."</p>
+                    <div class="reviewer">- David C., Kendall, FL</div>
+                </div>
+                <div class="review-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p>"Selling my antique collection felt daunting, but the experts at Redland made it a fantastic experience. Their valuation was spot-on, and the auction attracted serious collectors. A truly world-class service!"</p>
+                    <div class="reviewer">- Emily R., Coral Gables, FL</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Features Section -->
+    <section id="features">
+        <div class="container text-center">
+            <h2>Now Available: Enhanced Digital Features</h2>
+            <p>We're committed to making your experience seamless and efficient with our latest innovations.</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="status">New</span>
+                    <i class="fas fa-comments"></i>
+                    <h3>Live Chat Support</h3>
+                    <p>Get instant answers and support around the clock. Our 24/7 Live Chat ensures you're never left waiting, providing immediate assistance for all your auction inquiries.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="status">New</span>
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Online Booking</h3>
+                    <p>Streamline your schedule with our new Online Booking system. Easily reserve consultations, appraisals, or viewing appointments directly from our website, at your convenience.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="status">New</span>
+                    <i class="fas fa-robot"></i>
+                    <h3>AI Assistant</h3>
+                    <p>Our intelligent AI Assistant is ready to answer your common questions instantly, providing quick, accurate information about our services, processes, and upcoming auctions.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="status">New</span>
+                    <i class="fas fa-headset"></i>
+                    <h3>AI Voice Agent</h3>
+                    <p>Experience uninterrupted communication. Our AI Voice Agent ensures every call is answered promptly, professionally, and efficiently, so you never miss a vital connection.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="status">New</span>
+                    <i class="fab fa-whatsapp"></i>
+                    <h3>WhatsApp Integration</h3>
+                    <p>Connect with us on your preferred platform. Our WhatsApp Integration allows for instant replies and seamless communication, making your experience effortless.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="status">New</span>
+                    <i class="fab fa-google"></i>
+                    <h3>Live Google Reviews</h3>
+                    <p>See what our clients are saying, in real-time. Our website now displays our latest Google Reviews, offering transparent insights into our trusted service.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section-dark">
+        <div class="container">
+            <h2 class="text-center">Get in Touch with Redland Realty and Auction</h2>
+            <p class="text-center" style="color: rgba(255, 255, 255, 0.9);">We're ready to discuss your auction needs. Contact us today for expert guidance.</p>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Contact Details</h3>
+                    <p><i class="fas fa-phone-alt"></i> <span>+1 305-387-7777</span></p>
+                    <p><i class="fas fa-envelope"></i> <span>alex@auctionrec.com</span></p>
+                    <p><i class="fas fa-map-marker-alt"></i> <span>13200 SW 128th St Unit F1, Miami, FL 33186, United States</span></p>
+                    <p style="margin-top: 2rem;">Prefer a direct conversation? Call us or send an email, and our team will be happy to assist you with any questions regarding appraisals, consignments, or upcoming auctions.</p>
+                </div>
+                <div class="contact-form">
+                    <form action="#" method="POST"> <!-- Action can be replaced with a real endpoint -->
+                        <h3>Send Us a Message</h3>
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Your Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Your Phone (Optional)</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Your Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Send Enquiry</button>
+                    </form>
+                </div>
+            </div>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3594.136531818274!2d-80.37049818498457!3d25.733568883656126!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x889c09c3132049d5%3A0x6d11f7c32b5f6b8b!2s13200%20SW%20128th%20St%20Unit%20F1%2C%20Miami%2C%20FL%2033186%2C%20USA!5e0!3m2!1sen!2s!4v1678888888888!5m2!1sen!2s"
+                class="contact-map" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <a href="#" class="logo">Redland Realty and Auction</a>
+            <nav class="footer-nav">
+                <ul>
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#reviews">Reviews</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="footer-contact">
+                <p><i class="fas fa-phone-alt"></i> +1 305-387-7777</p>
+                <p><i class="fas fa-envelope"></i> alex@auctionrec.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> 13200 SW 128th St Unit F1, Miami, FL 33186, United States</p>
+            </div>
+            <p class="footer-copyright">&copy; 2023 Redland Realty and Auction. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/+13053877777" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth Scroll for Navigation Links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        const headerOffset = document.querySelector('.header').offsetHeight;
+                        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = elementPosition - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+
+                        // Close mobile menu if open
+                        const navLinks = document.getElementById('navLinks');
+                        if (navLinks.classList.contains('active')) {
+                            navLinks.classList.remove('active');
+                        }
+                    }
+                });
+            });
+
+            // Mobile Navigation Toggle
+            const navToggle = document.getElementById('navToggle');
+            const navLinks = document.getElementById('navLinks');
+
+            navToggle.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+
+            // Close nav menu when clicking outside on mobile
+            document.addEventListener('click', function(event) {
+                const isClickInsideNav = navLinks.contains(event.target) || navToggle.contains(event.target);
+                if (!isClickInsideNav && navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
